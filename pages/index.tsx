@@ -1,10 +1,10 @@
-import { Fragment } from "react";
-import Head from "next/head";
+import { Fragment } from 'react';
+import Head from 'next/head';
 
-import { Container } from "../components/Container";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { MediaGrid } from "../components/MediaGrid";
+import { Container } from '../components/Container';
+import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
+import { MediaGrid } from '../components/MediaGrid';
 
 export default function Home({ items }) {
   console.log(items);
@@ -19,12 +19,8 @@ export default function Home({ items }) {
         <Header />
         <main>
           <div className="py-32 text-center space-y-6">
-            <h1 className="text-6xl font-bold ">
-              🌜 Zora + Next.js Starter Kit 🌛
-            </h1>
-            <p className="text-lg text-gray-500">
-              Utilities to set the border width for one side of an element.
-            </p>
+            <h1 className="text-6xl font-bold ">🌜 Zora + Next.js Starter Kit 🌛</h1>
+            <p className="text-lg text-gray-500">Utilities to set the border width for one side of an element.</p>
           </div>
           <MediaGrid items={items} />
         </main>
@@ -41,13 +37,11 @@ export async function getStaticProps() {
 
 async function fetchMediaItems() {
   // Fetch the data from The Graph
-  const request = await fetch(
-    "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `query getMediaItems($first: Int!, $creator: String!) {
+  const request = await fetch('https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `query getMediaItems($first: Int!, $creator: String!) {
           medias(
             orderBy: createdAtTimestamp, 
             orderDirection: desc,
@@ -60,21 +54,20 @@ async function fetchMediaItems() {
               createdAtTimestamp
           }
         }`,
-        variables: {
-          first: 12,
-          // ZORA saves the `creator` field in lowercase
-          creator: process.env.CREATOR_ADDRESS.toLowerCase(),
-        },
-      }),
-    }
-  );
+      variables: {
+        first: 12,
+        // ZORA saves the `creator` field in lowercase
+        creator: process.env.CREATOR_ADDRESS.toLowerCase(),
+      },
+    }),
+  });
   const json = await request.json();
   const { medias } = json.data;
 
   // Fetch the contents of each metadata
 
   const items = await Promise.all(
-    medias.map(async (media) => {
+    medias.map(async media => {
       try {
         const request = await fetch(media.metadataURI);
         const metadata = await request.json();

@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import Account from "./Account";
-import useEagerConnect from "../hooks/useEagerConnect";
+import Account from './Account';
+import useEagerConnect from '../hooks/useEagerConnect';
 
 export function Header() {
   const triedToEagerConnect = useEagerConnect();

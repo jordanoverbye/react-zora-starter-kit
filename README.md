@@ -1,13 +1,12 @@
 # 🌜 Zora + Next.js Starter Kit 🌛
 
-A simple starter kit intended to help assist with the creation of decentralized NFT marketplaces. 
+A simple starter kit intended to help assist with the creation of decentralized NFT marketplaces.
 
 This starter kit uses the following technologies
 
 - [Next.js](https://nextjs.org/)
 - [Zora ZDK](https://zora.engineering/zdk)
 - [TailwindCSS](https://tailwindcss.com/)
-
 
 ## Getting Started
 
@@ -31,4 +30,3 @@ yarn install
 ```
 yarn dev
 ```
-

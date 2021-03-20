@@ -5,4 +5,4 @@ module.exports = {
     '@tailwindcss/jit': {},
     autoprefixer: {},
   },
-}
+};

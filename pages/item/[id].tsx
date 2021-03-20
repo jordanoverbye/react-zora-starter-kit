@@ -1,15 +1,15 @@
-import { Fragment, useCallback } from "react";
-import Head from "next/head";
-import { Wallet } from "ethers";
-import { constructBid, Decimal, approveERC20 } from "@zoralabs/zdk";
-import { MaxUint256 } from "@ethersproject/constants";
-import { useWeb3React } from "@web3-react/core";
+import { Fragment, useCallback } from 'react';
+import Head from 'next/head';
+import { Wallet } from 'ethers';
+import { constructBid, Decimal, approveERC20 } from '@zoralabs/zdk';
+import { MaxUint256 } from '@ethersproject/constants';
+import { useWeb3React } from '@web3-react/core';
 
-import { Container } from "../../components/Container";
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
-import { Button } from "../../components/Button";
-import { useZora } from "../../components/ZoraProvider";
+import { Container } from '../../components/Container';
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { Button } from '../../components/Button';
+import { useZora } from '../../components/ZoraProvider';
 
 export default function Item({ item }) {
   const { account, library } = useWeb3React();
@@ -17,7 +17,7 @@ export default function Item({ item }) {
 
   const handleBid = useCallback(async () => {
     try {
-      const dai = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
+      const dai = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
 
       const ownerId = await zora.fetchOwnerOf(item.id);
 
@@ -65,12 +65,8 @@ export default function Item({ item }) {
             <div>
               <div className="space-y-12">
                 <h1 className="text-4xl font-bold">{item.metadata.name}</h1>
-                <p className="text-lg text-gray-500">
-                  {item.metadata.description}
-                </p>
-                <p className="text-lg text-gray-500">
-                  Created: ${item.createdAtTimestamp}
-                </p>
+                <p className="text-lg text-gray-500">{item.metadata.description}</p>
+                <p className="text-lg text-gray-500">Created: ${item.createdAtTimestamp}</p>
                 <a
                   className="block"
                   href={`https://rinkeby.etherscan.io/block/${item.createdAtBlockNumber}`}
@@ -101,17 +97,14 @@ export async function getStaticProps(context) {
     }
   }`;
 
-  const request = await fetch(
-    "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query,
-        variables: { id },
-      }),
-    }
-  );
+  const request = await fetch('https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query,
+      variables: { id },
+    }),
+  });
 
   const {
     data: { media },
@@ -129,21 +122,18 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const query = `query getMediaItems($creator: String!) { medias(where: { creator: $creator }) { id } }`;
-  const request = await fetch(
-    "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query,
-        variables: { creator: process.env.CREATOR_ADDRESS.toLowerCase() },
-      }),
-    }
-  );
+  const request = await fetch('https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query,
+      variables: { creator: process.env.CREATOR_ADDRESS.toLowerCase() },
+    }),
+  });
   const json = await request.json();
 
   return {
-    paths: json.data.medias.map((i) => `/item/${i.id}`),
+    paths: json.data.medias.map(i => `/item/${i.id}`),
     fallback: true,
   };
 }

@@ -1,5 +1,5 @@
-const cloudinary = require("cloudinary").v2;
-const multer = require("multer");
+const cloudinary = require('cloudinary').v2;
+const multer = require('multer');
 
 export const config = {
   api: {
@@ -9,7 +9,7 @@ export const config = {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/uploads/");
+    cb(null, './public/uploads/');
   },
   filename: function (req, file, cb) {
     console.log(file);
@@ -18,12 +18,12 @@ const storage = multer.diskStorage({
 });
 
 export default async function (req, res, next) {
-  const upload = multer({ storage }).single("file");
+  const upload = multer({ storage }).single('file');
 
   upload(req, res, function (err) {
     if (err) return res.send(err);
 
-    console.log("file uploaded to server");
+    console.log('file uploaded to server');
     console.log(req.file);
 
     // SEND FILE TO CLOUDINARY
@@ -35,23 +35,19 @@ export default async function (req, res, next) {
 
     const path = req.file.path;
 
-    cloudinary.uploader.upload(
-      path,
-      { resource_type: "raw" },
-      function (err, image) {
-        console.log(err);
+    cloudinary.uploader.upload(path, { resource_type: 'raw' }, function (err, image) {
+      console.log(err);
 
-        if (err) return res.send(err);
-        // remove file from server
-        const fs = require("fs");
-        try {
-          fs.unlinkSync(path);
-        } catch {
-          console.log("error");
-        }
-        // return image details
-        res.json({ data: image.secure_url });
+      if (err) return res.send(err);
+      // remove file from server
+      const fs = require('fs');
+      try {
+        fs.unlinkSync(path);
+      } catch {
+        console.log('error');
       }
-    );
+      // return image details
+      res.json({ data: image.secure_url });
+    });
   });
 }

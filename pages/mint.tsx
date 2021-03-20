@@ -1,18 +1,13 @@
-import React, { Fragment, useCallback, useState } from "react";
-import Head from "next/head";
-import {
-  constructBidShares,
-  constructMediaData,
-  sha256FromBuffer,
-  generateMetadata,
-} from "@zoralabs/zdk";
+import React, { Fragment, useCallback, useState } from 'react';
+import Head from 'next/head';
+import { constructBidShares, constructMediaData, sha256FromBuffer, generateMetadata } from '@zoralabs/zdk';
 
-import { Button } from "../components/Button";
-import { Container } from "../components/Container";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
+import { Button } from '../components/Button';
+import { Container } from '../components/Container';
+import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
 
-import { useZora } from "../components/ZoraProvider";
+import { useZora } from '../components/ZoraProvider';
 
 export default function Mint() {
   const zora = useZora();
@@ -27,19 +22,11 @@ export default function Mint() {
         const description = event.target.elements.description.value;
         const file = event.target.elements.file.files[0];
 
-        const { metadataHash, metadataURI } = await generateAndUploadMetadata(
-          name,
-          description
-        );
+        const { metadataHash, metadataURI } = await generateAndUploadMetadata(name, description);
 
         const { contentURI, contentHash } = await generateAndUploadToken(file);
 
-        const mediaData = constructMediaData(
-          contentURI,
-          metadataURI,
-          contentHash,
-          metadataHash
-        );
+        const mediaData = constructMediaData(contentURI, metadataURI, contentHash, metadataHash);
 
         const bidShares = constructBidShares(
           10, // creator share
@@ -50,9 +37,9 @@ export default function Mint() {
         const tx = await zora.mint(mediaData, bidShares);
         const txResult = await tx.wait(8);
 
-        console.log("done");
+        console.log('done');
       } catch (e) {
-        console.log("e", e);
+        console.log('e', e);
         setErrors(true);
       } finally {
         setIsSubmitting(false);
@@ -83,27 +70,15 @@ export default function Mint() {
                 <form onSubmit={handleFormSubmit} className="space-y-6">
                   <label className="block">
                     <span className="text-gray-700">Token Name</span>
-                    <input
-                      name="name"
-                      type="text"
-                      className="mt-1 block w-full"
-                    />
+                    <input name="name" type="text" className="mt-1 block w-full" />
                   </label>
                   <label className="block">
                     <span className="text-gray-700">Token Description</span>
-                    <input
-                      name="description"
-                      type="text"
-                      className="mt-1 block w-full"
-                    />
+                    <input name="description" type="text" className="mt-1 block w-full" />
                   </label>
                   <label className="block">
                     <span className="text-gray-700">Token File</span>
-                    <input
-                      type="file"
-                      name="file"
-                      className="mt-1 block w-full"
-                    />
+                    <input type="file" name="file" className="mt-1 block w-full" />
                   </label>
                   <Button type="submit">Submit</Button>
                 </form>
@@ -122,20 +97,20 @@ async function generateAndUploadMetadata(name: string, description: string) {
   const metadata = {
     name,
     description,
-    mimeType: "text/plain",
-    version: "zora-20210101",
+    mimeType: 'text/plain',
+    version: 'zora-20210101',
   };
   formData.append(
-    "file",
-    new File([JSON.stringify(metadata)], "metadata.json", {
-      type: "text/plain",
+    'file',
+    new File([JSON.stringify(metadata)], 'metadata.json', {
+      type: 'text/plain',
     })
   );
-  const request = await fetch("api/upload", { method: "POST", body: formData });
+  const request = await fetch('api/upload', { method: 'POST', body: formData });
   const json = await request.json();
 
   const metadataURI = json.data;
-  const metadataJSON = generateMetadata("zora-20210101", metadata);
+  const metadataJSON = generateMetadata('zora-20210101', metadata);
   const metadataHash = sha256FromBuffer(Buffer.from(metadataURI));
 
   return { metadataHash, metadataURI };
@@ -143,8 +118,8 @@ async function generateAndUploadMetadata(name: string, description: string) {
 
 async function generateAndUploadToken(file: File) {
   const formData = new FormData();
-  formData.append("file", file);
-  const request = await fetch("api/upload", { method: "POST", body: formData });
+  formData.append('file', file);
+  const request = await fetch('api/upload', { method: 'POST', body: formData });
   const json = await request.json();
 
   const contentURI = json.data;

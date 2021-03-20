@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { Zora } from "@zoralabs/zdk";
-import { JsonRpcProvider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
+import { createContext, useState, useEffect, useContext } from 'react';
+import { Zora } from '@zoralabs/zdk';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import { useWeb3React } from '@web3-react/core';
 
-const NETWORK_URL = "";
+const NETWORK_URL = '';
 const NETWORK_CHAIN_ID = 4;
 
 const provider = new JsonRpcProvider(NETWORK_URL, NETWORK_CHAIN_ID);

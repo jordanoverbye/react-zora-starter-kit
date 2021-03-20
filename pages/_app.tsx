@@ -1,9 +1,9 @@
-import { Web3Provider } from "@ethersproject/providers";
-import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from '@ethersproject/providers';
+import { Web3ReactProvider } from '@web3-react/core';
 
-import { ZoraProvider } from "../components/ZoraProvider";
+import { ZoraProvider } from '../components/ZoraProvider';
 
-import "../styles/globals.css";
+import '../styles/globals.css';
 
 function getWeb3Library(provider) {
   return new Web3Provider(provider);

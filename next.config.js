@@ -1,7 +1,7 @@
 module.exports = {
-  webpack: (config) => {
+  webpack: config => {
     // This is required to use `Zora`
-    config.node = { fs: "empty" };
+    config.node = { fs: 'empty' };
 
     return config;
   },
