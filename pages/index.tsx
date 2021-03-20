@@ -7,12 +7,10 @@ import { Header } from '../components/Header';
 import { MediaGrid } from '../components/MediaGrid';
 
 export default function Home({ items }) {
-  console.log(items);
-
   return (
     <Fragment>
       <Head>
-        <title>Create Next App</title>
+        <title>Zora + Next.js Starter Kit</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
@@ -20,7 +18,9 @@ export default function Home({ items }) {
         <main>
           <div className="py-32 text-center space-y-6">
             <h1 className="text-6xl font-bold ">🌜 Zora + Next.js Starter Kit 🌛</h1>
-            <p className="text-lg text-gray-500">Utilities to set the border width for one side of an element.</p>
+            <p className="text-lg text-gray-500">
+              A simple starter kit intended to help assist with the creation of decentralized NFT marketplaces.
+            </p>
           </div>
           <MediaGrid items={items} />
         </main>

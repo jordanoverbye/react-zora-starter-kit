@@ -8,7 +8,7 @@ export function Header() {
   return (
     <header className="py-4 flex justify-between border-b-2">
       <Link href="/">
-        <a>Zora + NextJS Starter Kit</a>
+        <a>Zora + Next.js Starter Kit</a>
       </Link>
       <Account triedToEagerConnect={triedToEagerConnect} />
     </header>

@@ -1,11 +1,14 @@
 # 🌜 Zora + Next.js Starter Kit 🌛
 
+[View Live Demo](https://react-zora-starter-kit-podrvlixj-jordan5.vercel.app)
+
 A simple starter kit intended to help assist with the creation of decentralized NFT marketplaces.
 
 This starter kit uses the following technologies
 
 - [Next.js](https://nextjs.org/)
 - [Zora ZDK](https://zora.engineering/zdk)
+- [Zora Subgraph](https://thegraph.com/explorer/subgraph/ourzora/zora-v1)
 - [TailwindCSS](https://tailwindcss.com/)
 
 ## Getting Started
