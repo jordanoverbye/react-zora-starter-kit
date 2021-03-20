@@ -9,7 +9,7 @@ function getWeb3Library(provider) {
   return new Web3Provider(provider);
 }
 
-export default function NextWeb3App({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
   return (
     <Web3ReactProvider getLibrary={getWeb3Library}>
       <ZoraProvider>

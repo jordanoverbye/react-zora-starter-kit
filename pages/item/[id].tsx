@@ -108,7 +108,7 @@ export async function getStaticProps(context) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query,
-        variables: { id: "3" },
+        variables: { id },
       }),
     }
   );
@@ -136,7 +136,7 @@ export async function getStaticPaths() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query,
-        variables: { creator: "0x082bd7f9454e0ae94321bcc483ffc8570bfb23f0" },
+        variables: { creator: process.env.CREATOR_ADDRESS.toLowerCase() },
       }),
     }
   );

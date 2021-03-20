@@ -7,6 +7,8 @@ import { Header } from "../components/Header";
 import { MediaGrid } from "../components/MediaGrid";
 
 export default function Home({ items }) {
+  console.log(items);
+
   return (
     <Fragment>
       <Head>
@@ -18,7 +20,7 @@ export default function Home({ items }) {
         <main>
           <div className="py-32 text-center space-y-6">
             <h1 className="text-6xl font-bold ">
-              🌜 Zora + NextJS Starter Kit 🌛
+              🌜 Zora + Next.js Starter Kit 🌛
             </h1>
             <p className="text-lg text-gray-500">
               Utilities to set the border width for one side of an element.
@@ -32,37 +34,56 @@ export default function Home({ items }) {
   );
 }
 
-export async function getStaticProps(context) {
-  const query = `query getMediaItems($creator: String!) {
-    medias(where: { creator: $creator }) {
-      id
-      contentURI
-      metadataURI
-      currentBids { id }
-      currentAsk { id }
-      createdAtTimestamp
-    }
-  }`;
+export async function getStaticProps() {
+  const items = await fetchMediaItems();
+  return { props: { items } };
+}
 
+async function fetchMediaItems() {
+  // Fetch the data from The Graph
   const request = await fetch(
     "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        query,
-        variables: { creator: "0x082bd7f9454e0ae94321bcc483ffc8570bfb23f0" },
+        query: `query getMediaItems($first: Int!, $creator: String!) {
+          medias(
+            orderBy: createdAtTimestamp, 
+            orderDirection: desc,
+            first: $first, 
+            where: { creator: $creator }
+          ) {
+              id
+              contentURI
+              metadataURI
+              createdAtTimestamp
+          }
+        }`,
+        variables: {
+          first: 12,
+          // ZORA saves the `creator` field in lowercase
+          creator: process.env.CREATOR_ADDRESS.toLowerCase(),
+        },
       }),
     }
   );
-
   const json = await request.json();
+  const { medias } = json.data;
 
-  console.log();
+  // Fetch the contents of each metadata
 
-  return {
-    props: {
-      items: json.data.medias,
-    },
-  };
+  const items = await Promise.all(
+    medias.map(async (media) => {
+      try {
+        const request = await fetch(media.metadataURI);
+        const metadata = await request.json();
+        return { ...media, ...metadata };
+      } catch {
+        return media;
+      }
+    })
+  );
+
+  return items;
 }

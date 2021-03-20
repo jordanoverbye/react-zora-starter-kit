@@ -1,5 +1,5 @@
 export function Button(
-  props: React.PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
+  props: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>
 ) {
   return (
     <button
