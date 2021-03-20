@@ -1,11 +1,3 @@
-import { formatUnits } from "@ethersproject/units";
-
-export function shortenHex(hex, length = 4) {
-  return `${hex.substring(0, length + 2)}…${hex.substring(
-    hex.length - length
-  )}`;
-}
-
 const ETHERSCAN_PREFIXES = {
   1: "",
   3: "ropsten.",
@@ -31,15 +23,3 @@ export function formatEtherscanLink(type, data) {
     }
   }
 }
-
-/**
- * @name parseBalance
- *
- * @param {import("@ethersproject/bignumber").BigNumberish} balance
- * @param {number} decimals
- * @param {number} decimalsToDisplay
- *
- * @returns {string}
- */
-export const parseBalance = (balance, decimals = 18, decimalsToDisplay = 3) =>
-  Number(formatUnits(balance, decimals)).toFixed(decimalsToDisplay);

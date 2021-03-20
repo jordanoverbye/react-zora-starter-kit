@@ -11,8 +11,6 @@ import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
 import { useZora } from "../../components/ZoraProvider";
 
-import usePersonalSign from "../../hooks/usePersonalSign";
-
 export default function Item({ item }) {
   const { account, library } = useWeb3React();
   const zora = useZora();

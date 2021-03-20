@@ -4,7 +4,12 @@ import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { injected } from "../connectors";
 import useENSName from "../hooks/useENSName";
-import { formatEtherscanLink, shortenHex } from "../util";
+
+function shortenHex(hex, length = 4) {
+  return `${hex.substring(0, length + 2)}…${hex.substring(
+    hex.length - length
+  )}`;
+}
 
 const Account = ({ triedToEagerConnect }) => {
   const {
@@ -79,17 +84,7 @@ const Account = ({ triedToEagerConnect }) => {
     );
   }
 
-  return (
-    <a
-      {...{
-        href: formatEtherscanLink("Account", [chainId, account]),
-        target: "_blank",
-        rel: "noopener noreferrer",
-      }}
-    >
-      {ENSName || `${shortenHex(account, 4)}`}
-    </a>
-  );
+  return <span>{ENSName || `${shortenHex(account, 4)}`}</span>;
 };
 
 export default Account;

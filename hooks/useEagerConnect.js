@@ -1,5 +1,5 @@
-import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
+import { useWeb3React } from "@web3-react/core";
 import { injected } from "../connectors";
 
 export default function useEagerConnect() {
