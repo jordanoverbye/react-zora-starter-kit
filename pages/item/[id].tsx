@@ -5,10 +5,7 @@ import Head from 'next/head';
 // import { MaxUint256 } from '@ethersproject/constants';
 // import { useWeb3React } from '@web3-react/core';
 
-import { Container } from '../../components/Container';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { Button } from '../../components/Button';
+import { Container, Header, Footer } from '../../components/Layout';
 // import { useZora } from '../../components/ZoraProvider';
 
 export default function Item({ item }) {

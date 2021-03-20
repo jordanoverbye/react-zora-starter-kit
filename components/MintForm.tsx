@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { constructBidShares, constructMediaData, sha256FromBuffer, generateMetadata } from '@zoralabs/zdk';
 
 import { useZora, ZoraProvider } from './ZoraProvider';
-import { Button } from './Button';
 
 export default function MintForm() {
   return (
@@ -74,7 +73,12 @@ function Form() {
             <span className="text-gray-700">Token File</span>
             <input type="file" name="file" className="mt-1 block w-full" />
           </label>
-          <Button type="submit">Submit</Button>
+          <button
+            className="w-full sm:w-auto flex-none bg-gray-50 text-gray-400 hover:text-gray-900 font-mono leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition-colors duration-200"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       )}
     </div>
