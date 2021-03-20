@@ -25,12 +25,6 @@ export default function Home({ items }) {
             </p>
           </div>
           <MediaGrid items={items} />
-          <h1>
-            Welcome to{" "}
-            <a href="https://github.com/mirshko/next-web3-boilerplate">
-              Next Web3 Boilerplate
-            </a>
-          </h1>
         </main>
         <Footer />
       </Container>

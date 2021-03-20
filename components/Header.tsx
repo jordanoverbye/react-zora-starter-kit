@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import Account from "./Account";
-import ETHBalance from "./ETHBalance";
 import useEagerConnect from "../hooks/useEagerConnect";
 
 export function Header() {
@@ -11,7 +10,6 @@ export function Header() {
       <Link href="/">
         <a>Zora + NextJS Starter Kit</a>
       </Link>
-      <ETHBalance />
       <Account triedToEagerConnect={triedToEagerConnect} />
     </header>
   );
