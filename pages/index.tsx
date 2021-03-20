@@ -6,7 +6,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { MediaGrid } from "../components/MediaGrid";
 
-export default function Home() {
+export default function Home({ items }) {
   return (
     <Fragment>
       <Head>
@@ -24,34 +24,7 @@ export default function Home() {
               Utilities to set the border width for one side of an element.
             </p>
           </div>
-          <MediaGrid
-            items={[
-              {
-                name: "Hello",
-                description: "Hello World",
-              },
-              {
-                name: "Hello",
-                description: "Hello World",
-              },
-              {
-                name: "Hello",
-                description: "Hello World",
-              },
-              {
-                name: "Hello",
-                description: "Hello World",
-              },
-              {
-                name: "Hello",
-                description: "Hello World",
-              },
-              {
-                name: "Hello",
-                description: "Hello World",
-              },
-            ]}
-          />
+          <MediaGrid items={items} />
           <h1>
             Welcome to{" "}
             <a href="https://github.com/mirshko/next-web3-boilerplate">
@@ -63,4 +36,39 @@ export default function Home() {
       </Container>
     </Fragment>
   );
+}
+
+export async function getStaticProps(context) {
+  const query = `query getMediaItems($creator: String!) {
+    medias(where: { creator: $creator }) {
+      id
+      contentURI
+      metadataURI
+      currentBids { id }
+      currentAsk { id }
+      createdAtTimestamp
+    }
+  }`;
+
+  const request = await fetch(
+    "https://api.thegraph.com/subgraphs/name/ourzora/zora-v1-rinkeby",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query,
+        variables: { creator: "0x082bd7f9454e0ae94321bcc483ffc8570bfb23f0" },
+      }),
+    }
+  );
+
+  const json = await request.json();
+
+  console.log();
+
+  return {
+    props: {
+      items: json.data.medias,
+    },
+  };
 }
