@@ -29,7 +29,7 @@ export function Header() {
       </Link>
       {address ? (
         <div className="flex space-x-3">
-          {address === process.env.CREATOR_ADDRESS && (
+          {address === process.env.NEXT_PUBLIC_CREATOR_ADDRESS && (
             <Link href="/mint">
               <a className="bg-blue-500 text-white leading-6 py-2 px-4 border border-transparent font-normal focus:outline-black rounded-xl">
                 Mint

@@ -72,7 +72,7 @@ async function fetchMediaItems() {
         }`,
       variables: {
         first: 6,
-        creator: process.env.CREATOR_ADDRESS,
+        creator: process.env.NEXT_PUBLIC_CREATOR_ADDRESS,
       },
     }),
   });

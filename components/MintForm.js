@@ -43,10 +43,6 @@ export function MintForm() {
     [zora]
   );
 
-  if (!zora) {
-    return <div className="bg-red-100 border border-red-300 p-3 text-gray-700">Not connection to Zora</div>;
-  }
-
   return (
     <div className="space-y-8">
       <form onSubmit={handleFormSubmit} className="space-y-8">

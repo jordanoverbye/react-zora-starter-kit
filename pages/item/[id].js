@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { formatCurrency } from '@coingecko/cryptoformat';
 
 import { Container, Header, Footer } from '../../components/Layout';
-import { BidForm } from '../../components/BidForm';
+// import { BidForm } from '../../components/BidForm';
 
 export default function Item({ item }) {
   const [tab, setTab] = useState('Ownership');
@@ -93,7 +93,7 @@ export default function Item({ item }) {
                         )}
                       </div>
                     )}
-                    {tab === 'Bid' && <BidForm id={item} />}
+                    {/* {tab === 'Bid' && <BidForm id={item} />} */}
                   </div>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export async function getServerSideProps(context) {
     data: { media },
   } = await request.json();
 
-  if (media.creator.id !== process.env.CREATOR_ADDRESS) {
+  if (media.creator.id !== process.env.NEXT_PUBLIC_CREATOR_ADDRESS) {
     return { notFound: true };
   }
 
