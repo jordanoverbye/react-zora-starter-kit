@@ -23,7 +23,7 @@ yarn install # or npm install
 3. Setup environment variables
 
 ```sh
-cp .env.sample .env
+cp .env.sample .env.local
 ```
 
 Now go into `.env` and set your variables. Please note: This starter-kit uses Cloudinary for uploading files, but this could be swapped out for any file hosting provider, such as IPFS.
