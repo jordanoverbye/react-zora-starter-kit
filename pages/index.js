@@ -67,7 +67,6 @@ export async function getServerSideProps() {
 }
 
 async function fetchMediaItems() {
-  console.log(process.env.ZORA_SUB_GRAPH_API_URL);
   // Fetch the data from The Graph
   const request = await fetch(process.env.ZORA_SUB_GRAPH_API_URL, {
     method: 'POST',
