@@ -95,7 +95,7 @@ async function generateAndUploadMetadata(name, description) {
       type: 'text/plain',
     })
   );
-  const request = await fetch('api/upload', { method: 'POST', body: formData });
+  const request = await fetch('/api/upload', { method: 'POST', body: formData });
   const json = await request.json();
 
   const metadataURI = json.data;
@@ -108,7 +108,7 @@ async function generateAndUploadMetadata(name, description) {
 async function generateAndUploadToken(file) {
   const formData = new FormData();
   formData.append('file', file);
-  const request = await fetch('api/upload', { method: 'POST', body: formData });
+  const request = await fetch('/api/upload', { method: 'POST', body: formData });
   const json = await request.json();
 
   const contentURI = json.data;
