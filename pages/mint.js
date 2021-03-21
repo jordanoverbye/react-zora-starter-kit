@@ -8,7 +8,7 @@ export default function Mint() {
   return (
     <Fragment>
       <Head>
-        <title>zOrbst</title>
+        <title>zOrbs</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>

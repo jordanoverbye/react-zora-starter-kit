@@ -36,12 +36,12 @@ export function Header() {
         <div className="flex space-x-3">
           {address === process.env.NEXT_PUBLIC_CREATOR_ADDRESS && (
             <Link href="/mint">
-              <a className="bg-blue-500 text-white leading-6 py-2 px-4 border border-transparent font-normal focus:outline-black rounded-xl">
+              <a className="bg-blue-500 text-white leading-6 py-2 px-4 border border-transparent focus:outline-black rounded-xl">
                 Mint
               </a>
             </Link>
           )}
-          <span className="bg-gray-100 text-gray-500 leading-6 py-2 px-4 border border-transparent rounded-xl font-semibold">
+          <span className="bg-gray-100 text-gray-500 leading-6 py-2 px-4 border border-transparent rounded-xl">
             {address.substr(0, 5)}...{address.slice(address.length - 5)}
           </span>
         </div>

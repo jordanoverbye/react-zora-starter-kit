@@ -37,22 +37,19 @@ export default function Home({ items }) {
             </p>
           </section>
           <section className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {items
-              // Demo only
-              .filter(item => item.id !== '2008')
-              .map((item, idx) => (
-                <Link key={idx} href={`/item/${encodeURIComponent(item.id)}`}>
-                  <a className="block hover:text-blue-500">
-                    <figure className="space-y-4">
-                      <img className="block w-full" src={item.contentURI} alt={item.name} />
-                      <figcaption className="stack-y-1">
-                        <div className="font-semibold text-xl">{item.name}</div>
-                        <div className="text-gray-400">{item.currentBids.length} bids</div>
-                      </figcaption>
-                    </figure>
-                  </a>
-                </Link>
-              ))}
+            {items.map((item, idx) => (
+              <Link key={idx} href={`/item/${encodeURIComponent(item.id)}`}>
+                <a className="block hover:text-blue-500">
+                  <figure className="space-y-4">
+                    <img className="block w-full" src={item.contentURI} alt={item.name} />
+                    <figcaption className="stack-y-1">
+                      <div className="font-semibold text-xl">{item.name}</div>
+                      <div className="text-gray-400">{item.currentBids.length} bids</div>
+                    </figcaption>
+                  </figure>
+                </a>
+              </Link>
+            ))}
           </section>
         </main>
         <Footer />

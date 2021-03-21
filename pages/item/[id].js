@@ -151,9 +151,9 @@ export async function getServerSideProps(context) {
     data: { media },
   } = await request.json();
 
-  // if (media.creator.id !== process.env.NEXT_PUBLIC_CREATOR_ADDRESS) {
-  //   return { notFound: true };
-  // }
+  if (media.creator.id !== process.env.NEXT_PUBLIC_CREATOR_ADDRESS) {
+    return { notFound: true };
+  }
 
   // Fetch the contents of the metadata
   const metaDataRequest = await fetch(media.metadataURI);
