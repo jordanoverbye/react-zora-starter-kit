@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
   },
 });
 
+// FIXME this is currently broken in production mode on vercel
 export default async function uploadHandler(req, res) {
   const upload = multer({ storage }).single('file');
 
