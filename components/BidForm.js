@@ -1,51 +1,48 @@
 import { useCallback, useState, useRef } from 'react';
 
-import { useZora } from './ZoraProvider';
+// import { useZora } from './ZoraProvider';
 
 export function BidForm({ id }) {
-  const { zora } = useZora();
+  // const { zora } = useZora();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState(false);
 
   const amountRef = useRef();
   const sellOnShareRef = useRef();
 
-  const handleFormSubmit = useCallback(
-    async event => {
-      event.preventDefault();
+  const handleFormSubmit = useCallback(async event => {
+    event.preventDefault();
+    setErrors(false);
+    setIsSubmitting(true);
+    try {
+      // TODO
+
+      // const currency = '0x0000000000000000000000000000000000000000'; // ETH;
+      // const amount = amountRef.current.value;
+      // const sellOnShare = sellOnShareRef.current.value;
+
+      // // grant approval
+      // const approval = await approveERC20(provider, currency, address, MaxUint256);
+
+      // const bid = constructBid(
+      //   currency, // currency
+      //   Decimal.new(10).value, // amount 10*10^18
+      //   address, // bidder address
+      //   address, // recipient address (address to receive Media if bid is accepted)
+      //   10 // sellOnShare
+      // );
+
+      // const tx = await zora.setBid(id, bid);
+      // await tx.wait(8); // 8 confirmations to finalize
+
       setErrors(false);
-      setIsSubmitting(true);
-      try {
-        const currency = '0x0000000000000000000000000000000000000000'; // ETH;
-        const amount = amountRef.current.value;
-        const sellOnShare = sellOnShareRef.current.value;
-
-        // TODO
-
-        // // grant approval
-        // const approval = await approveERC20(provider, currency, address, MaxUint256);
-
-        // const bid = constructBid(
-        //   currency, // currency
-        //   Decimal.new(10).value, // amount 10*10^18
-        //   address, // bidder address
-        //   address, // recipient address (address to receive Media if bid is accepted)
-        //   10 // sellOnShare
-        // );
-
-        // const tx = await zora.setBid(id, bid);
-        // await tx.wait(8); // 8 confirmations to finalize
-
-        setErrors(false);
-      } catch (e) {
-        console.log(e);
-        setErrors(true);
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [zora]
-  );
+    } catch (e) {
+      console.log(e);
+      setErrors(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
 
   return (
     <div className="space-y-8">

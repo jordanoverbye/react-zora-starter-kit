@@ -44,7 +44,7 @@ export default function Home({ items }) {
                 <Link key={idx} href={`/item/${encodeURIComponent(item.id)}`}>
                   <a className="block hover:text-blue-500">
                     <figure className="space-y-4">
-                      <img className="block w-full" src={item.contentURI} />
+                      <img className="block w-full" src={item.contentURI} alt={item.name} />
                       <figcaption className="stack-y-1">
                         <div className="font-semibold text-xl">{item.name}</div>
                         <div className="text-gray-400">{item.currentBids.length} bids</div>
