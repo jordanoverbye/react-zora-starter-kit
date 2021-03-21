@@ -1,10 +1,8 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
 
 import { Container, Header, Footer } from '../components/Layout';
-
-const MintForm = dynamic(() => import('../components/MintForm'), { ssr: false });
+import { MintForm } from '../components/MintForm';
 
 export default function Mint() {
   return (
@@ -16,12 +14,13 @@ export default function Mint() {
       <Container>
         <Header />
         <main>
-          <div className="py-32 text-center space-y-6">
-            <h1 className="text-6xl font-bold ">Mint CryptoMedia </h1>
-          </div>
-          <div className="mt-8 max-w-md mx-auto">
+          <section className="py-24 text-center space-y-8">
+            <h1 className="text-8xl font-bold">Mint</h1>
+            <p className="text-2xl text-gray-400 max-w-2xl mx-auto">Use the form below to mint a zOrb</p>
+          </section>
+          <section className="max-w-3xl mx-auto">
             <MintForm />
-          </div>
+          </section>
         </main>
         <Footer />
       </Container>

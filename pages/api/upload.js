@@ -23,12 +23,8 @@ export default async function (req, res, next) {
   upload(req, res, function (err) {
     if (err) return res.send(err);
 
-    console.log('file uploaded to server');
-    console.log(req.file);
-
-    // SEND FILE TO CLOUDINARY
     cloudinary.config({
-      cloud_name: process.env.CCLOUDINARY_CLOUD_NAME,
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
       api_key: process.env.CLOUDINARY_API_KEY,
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
