@@ -8,7 +8,7 @@ export default function Mint() {
   return (
     <Fragment>
       <Head>
-        <title>Mint — Zora + Next.js Starter Kit</title>
+        <title>zOrbst</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>

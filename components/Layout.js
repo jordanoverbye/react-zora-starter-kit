@@ -62,14 +62,14 @@ export function Footer() {
   return (
     <footer className="mt-32 pb-8 text-center">
       <p className="text-gray-400">
-        Built by Jordan Overbye for Eth Global NFT Hack 2021.{' '}
+        Built by Jordan Overbye for the 2021 Eth Global NFT Hackathon.{' '}
         <a
           className="underline"
           href="https://github.com/jordanoverbye/react-zora-starter-kit"
           target="_blank"
           rel="noreferrer"
         >
-          View Source
+          View Source &#x2197;
         </a>
       </p>
     </footer>

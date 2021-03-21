@@ -10,13 +10,13 @@ export default function Item({ item }) {
   return (
     <Fragment>
       <Head>
-        <title>{item.name} — Zora + Next.js Starter Kit</title>
+        <title>{item.name} — zOrbs</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Header />
         <main className="py-24 space-y-32">
-          <section className="grid grid-cols-2 gap-16">
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <div>
               <img src={item.contentURI} className="block w-full" alt={item.name} />
             </div>

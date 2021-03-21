@@ -8,20 +8,35 @@ export default function Home({ items }) {
   return (
     <Fragment>
       <Head>
-        <title>Zora + Next.js Starter Kit</title>
+        <title>zOrbs</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
         <Header />
         <main>
-          <section className="py-24 text-center space-y-8">
+          <section className="py-24 text-center space-y-6">
             <h1 className="text-8xl font-bold">zOrbs</h1>
-            <p className="text-2xl text-gray-400 max-w-2xl mx-auto">
-              A simple self-hosted NFT marketplace running on the Zora protocol. Built with ZoraZDK, Next.js, The Graph
-              and Tailwind.
+            <p className="text-2xl text-gray-400 max-w-3xl mx-auto">
+              A simple starter kit for building Non-Fungible Token (NFT) marketplaces on the{' '}
+              <a className="underline" href="https://zora.engineering" target="_blank" rel="noreferrer">
+                Zora
+              </a>{' '}
+              protocol using{' '}
+              <a className="underline" href="https://nextjs.org" target="_blank" rel="noreferrer">
+                Next.js
+              </a>
+              ,{' '}
+              <a className="underline" href="https://thegraph.com" target="_blank" rel="noreferrer">
+                The Graph
+              </a>{' '}
+              and{' '}
+              <a className="underline" href="https://tailwindcss.com" target="_blank" rel="noreferrer">
+                Tailwind
+              </a>
+              .
             </p>
           </section>
-          <section className="grid grid-cols-3 gap-12">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {items
               // Demo only
               .filter(item => item.id !== '2008')
@@ -52,6 +67,7 @@ export async function getServerSideProps() {
 }
 
 async function fetchMediaItems() {
+  console.log(process.env.ZORA_SUB_GRAPH_API_URL);
   // Fetch the data from The Graph
   const request = await fetch(process.env.ZORA_SUB_GRAPH_API_URL, {
     method: 'POST',
