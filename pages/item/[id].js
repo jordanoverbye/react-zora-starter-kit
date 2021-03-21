@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import Head from 'next/head';
+import { formatDistance } from 'date-fns';
 import { formatCurrency } from '@coingecko/cryptoformat';
 
 import { Container, Header, Footer } from '../../components/Layout';
@@ -71,25 +72,26 @@ export default function Item({ item }) {
                             <span className="text-gray-600">No current bids</span>
                           </div>
                         ) : (
-                          item.currentBids.map((bid, idx) => (
-                            <tr key={bid.id} className={idx % 2 == 0 ? 'bg-gray-100' : undefined}>
-                              <td className="p-2">{formatCurrency(bid.amount, bid.currency.symbol, 'en')}</td>
-                              <td className="p-2">
+                          <div className="space-y-4">
+                            {item.currentBids.map((bid, idx) => (
+                              <div key={bid.id} className="bg-gray-100 p-4 space-y-2 rounded-lg">
+                                <div className="block text-xl">
+                                  {formatCurrency(bid.amount, bid.currency.symbol, 'en')}{' '}
+                                  {formatDistance(new Date(bid.createdAtTimestamp * 1000), new Date(), {
+                                    addSuffix: true,
+                                  })}
+                                </div>
                                 <a
+                                  className="inline-block py-1 px-3 text-gray-400 border border-gray-300 rounded-lg"
                                   href={`https://etherscan.io/address/${bid.bidder.id}`}
                                   target="_blank"
                                   rel="noreferrer"
                                 >
-                                  {bid.bidder.id}
+                                  Etherscan &#x2197;
                                 </a>
-                              </td>
-                              <td className="p-2">
-                                {formatDistance(new Date(bid.createdAtTimestamp * 1000), new Date(), {
-                                  addSuffix: true,
-                                })}
-                              </td>
-                            </tr>
-                          ))
+                              </div>
+                            ))}
+                          </div>
                         )}
                       </div>
                     )}
@@ -149,9 +151,9 @@ export async function getServerSideProps(context) {
     data: { media },
   } = await request.json();
 
-  if (media.creator.id !== process.env.NEXT_PUBLIC_CREATOR_ADDRESS) {
-    return { notFound: true };
-  }
+  // if (media.creator.id !== process.env.NEXT_PUBLIC_CREATOR_ADDRESS) {
+  //   return { notFound: true };
+  // }
 
   // Fetch the contents of the metadata
   const metaDataRequest = await fetch(media.metadataURI);
