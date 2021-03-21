@@ -20,7 +20,7 @@ export function ZoraProvider({ children }) {
       const signer = provider.getSigner();
       const address = await signer.getAddress();
       setAddress(address.toLocaleLowerCase()); // Note: Not sure  why does zora lowercase addresses?
-      setZora(new Zora(signer, 4));
+      setZora(new Zora(signer, process.env.NEXT_PUBLIC_ETH_CHAIN_ID));
     }
   }, [web3Modal]);
 
@@ -28,7 +28,7 @@ export function ZoraProvider({ children }) {
     (async () => {
       setWeb3Modal(
         new Web3Modal({
-          network: 'rinkenby',
+          network: process.env.NEXT_PUBLIC_ETH_NETWORK,
           cacheProvider: true,
           providerOptions: {
             walletconnect: {

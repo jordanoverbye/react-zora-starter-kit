@@ -25,7 +25,12 @@ export function Header() {
   return (
     <header className="pt-4 flex justify-between items-center">
       <Link href="/">
-        <a className="inline-block text-2xl font-semibold">zOrbs</a>
+        <a className="flex items-center space-x-3">
+          <span className="text-3xl font-semibold">zOrbs</span>
+          <span className="inline-block py-1 px-2 text-gray-400 text-xs border border-gray-200 rounded-lg">
+            {process.env.NEXT_PUBLIC_ETH_NETWORK}
+          </span>
+        </a>
       </Link>
       {address ? (
         <div className="flex space-x-3">
