@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
+const fs = require('fs');
 
 export const config = {
   api: {
@@ -12,16 +13,17 @@ const storage = multer.diskStorage({
     cb(null, './public/uploads/');
   },
   filename: function (req, file, cb) {
-    console.log(file);
     cb(null, file.originalname);
   },
 });
 
-export default async function (req, res, next) {
+export default async function uploadHandler(req, res) {
   const upload = multer({ storage }).single('file');
 
-  upload(req, res, function (err) {
-    if (err) return res.send(err);
+  upload(req, res, error => {
+    if (error) {
+      return res.status(500);
+    }
 
     cloudinary.config({
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -31,19 +33,17 @@ export default async function (req, res, next) {
 
     const path = req.file.path;
 
-    cloudinary.uploader.upload(path, { resource_type: 'raw' }, function (err, image) {
-      console.log(err);
+    cloudinary.uploader.upload(path, { resource_type: 'raw' }, function (error, image) {
+      if (error) {
+        return res.status(500);
+      }
 
-      if (err) return res.send(err);
-      // remove file from server
-      const fs = require('fs');
       try {
         fs.unlinkSync(path);
+        res.status(200).json({ data: image.secure_url });
       } catch {
-        console.log('error');
+        return res.status(500);
       }
-      // return image details
-      res.json({ data: image.secure_url });
     });
   });
 }
