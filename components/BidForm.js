@@ -1,48 +1,51 @@
+import { approveERC20, constructBid, Decimal } from '@zoralabs/zdk';
+import { utils } from 'ethers';
 import { useCallback, useState, useRef } from 'react';
 
-// import { useZora } from './ZoraProvider';
+import { useZora } from './ZoraProvider';
 
 export function BidForm({ id }) {
-  // const { zora } = useZora();
+  const { address, signer, zora } = useZora();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState(false);
 
   const amountRef = useRef();
   const sellOnShareRef = useRef();
 
-  const handleFormSubmit = useCallback(async event => {
-    event.preventDefault();
-    setErrors(false);
-    setIsSubmitting(true);
-    try {
-      // TODO
-
-      // const currency = '0x0000000000000000000000000000000000000000'; // ETH;
-      // const amount = amountRef.current.value;
-      // const sellOnShare = sellOnShareRef.current.value;
-
-      // // grant approval
-      // const approval = await approveERC20(provider, currency, address, MaxUint256);
-
-      // const bid = constructBid(
-      //   currency, // currency
-      //   Decimal.new(10).value, // amount 10*10^18
-      //   address, // bidder address
-      //   address, // recipient address (address to receive Media if bid is accepted)
-      //   10 // sellOnShare
-      // );
-
-      // const tx = await zora.setBid(id, bid);
-      // await tx.wait(8); // 8 confirmations to finalize
-
+  const handleFormSubmit = useCallback(
+    async event => {
+      event.preventDefault();
       setErrors(false);
-    } catch (e) {
-      console.log(e);
-      setErrors(true);
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, []);
+      setIsSubmitting(true);
+      try {
+        // TODO This doesn't work at the moment
+        const currency = '0x0000000000000000000000000000000000000000'; // ETH;
+        const amount = parseInt(amountRef.current.value);
+        const sellOnShare = parseInt(sellOnShareRef.current.value);
+
+        // await approveERC20(signer, currency, address, utils.parseUnits(amount));
+
+        const bid = constructBid(
+          currency,
+          Decimal.new(amount).value,
+          address, // bidder address
+          address, // recipient address (address to receive Media if bid is accepted)
+          parseInt(sellOnShare)
+        );
+
+        // const tx = await zora.setBid(id, bid);
+        // await tx.wait(8); // 8 confirmations to finalize
+
+        setErrors(false);
+      } catch (e) {
+        console.log(e);
+        setErrors(true);
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [id, zora, address, signer]
+  );
 
   return (
     <div className="space-y-8">
@@ -52,12 +55,14 @@ export function BidForm({ id }) {
           <input type="number" className="block w-full" ref={amountRef} />
         </label>
         <label className="block space-y-1">
-          <span>Sell-on share</span>
+          <span>Sell-on share (%)</span>
           <input
             placeholder="One-time fee current owner will earn from next sale"
             type="number"
             className="block w-full"
             ref={sellOnShareRef}
+            min={1}
+            max={100}
           />
         </label>
         <button

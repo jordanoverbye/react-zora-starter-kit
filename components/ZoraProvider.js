@@ -10,6 +10,7 @@ export function ZoraProvider({ children }) {
   const [zora, setZora] = useState();
   const [web3Modal, setWeb3Modal] = useState();
   const [address, setAddress] = useState();
+  const [signer, setSigner] = useState();
 
   const authenticate = useCallback(async () => {
     if (web3Modal) {
@@ -19,6 +20,7 @@ export function ZoraProvider({ children }) {
       const provider = new providers.Web3Provider(web3Provider);
       const signer = provider.getSigner();
       const address = await signer.getAddress();
+      setSigner(signer);
       setAddress(address.toLocaleLowerCase()); // Note: Not sure  why does zora lowercase addresses?
       setZora(new Zora(signer, parseInt(process.env.NEXT_PUBLIC_ETH_CHAIN_ID)));
     }
@@ -40,5 +42,5 @@ export function ZoraProvider({ children }) {
     })();
   }, []);
 
-  return <ZoraContext.Provider value={{ zora, address, authenticate }} children={children} />;
+  return <ZoraContext.Provider value={{ zora, address, authenticate, signer }} children={children} />;
 }
