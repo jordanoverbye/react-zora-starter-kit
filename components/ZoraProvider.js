@@ -35,6 +35,9 @@ export function ZoraProvider({ children }) {
           providerOptions: {
             walletconnect: {
               package: await import('@walletconnect/web3-provider'),
+              options: {
+                infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+              },
             },
           },
         })
