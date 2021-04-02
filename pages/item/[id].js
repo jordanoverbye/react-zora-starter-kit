@@ -95,7 +95,7 @@ export default function Item({ item }) {
                         )}
                       </div>
                     )}
-                    {tab === 'Bid' && <BidForm id={item} />}
+                    {tab === 'Bid' && <BidForm id={item.id} />}
                   </div>
                 </div>
               </div>
